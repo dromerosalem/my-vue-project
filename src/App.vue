@@ -57,6 +57,11 @@
               rounded="lg"
             >
               <!--  -->
+              <h1>City: {{city}}</h1>
+              <h3>Temperature: {{ data.temperature }}</h3>
+              <h3>Sky: {{ data.description }}</h3>
+              <h3>Wind: {{ data.wind }}</h3>
+
             </v-sheet>
           </v-col>
 
@@ -69,6 +74,8 @@
               min-height="268"
             >
               <!--  -->
+              <input v-model="newCity" type="text" placeholder="Enter city" />
+              <button @click="updateCity">Get Weather</button>
             </v-sheet>
           </v-col>
         </v-row>
@@ -78,7 +85,7 @@
 </template>
 
 <script>
-import{mapActions} from 'vuex';
+import{mapActions, mapState} from 'vuex';
 import store from './store'
 
   export default {
@@ -89,20 +96,41 @@ import store from './store'
         'Profile',
         'Updates',
       ],
+      city: 'Warsaw',
+      newCity: '',
     }),
+    computed:{
+      ...mapState(['data'])
+    },
     methods:{
       ...mapActions(['fetchData']),
-    },
-    mounted() {
-  this.fetchData()
-    .then((apiResponse) => {
-      console.log('API Response', JSON.parse(JSON.stringify(apiResponse)));
-      console.log('Store Data', JSON.parse(JSON.stringify(store.state.data)));
-    })
+      updateCity(){
+        this.city = this.newCity;
+        this.fetchData(this.city)
+           .then((apiResponse) => {
+            console.log('APIResponse', JSON.parse(JSON.stringify(apiResponse)));
+            console.log('StoreData', JSON.parse(JSON.stringify(store.state.data)));
+             })
     .catch((error) => {
       console.error(error);
-    });
-}
+     });
+      }
+
+
+    },
+    
+    
+    
+    mounted() {
+        this.fetchData(this.city)
+           .then((apiResponse) => {
+            console.log('APIResponse', JSON.parse(JSON.stringify(apiResponse)));
+            console.log('StoreData', JSON.parse(JSON.stringify(store.state.data)));
+             })
+    .catch((error) => {
+      console.error(error);
+     });
+    }
 
   }
 </script>

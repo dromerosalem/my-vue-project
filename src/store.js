@@ -14,8 +14,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    fetchData({ commit }) {
-      return axios.get('https://rickandmortyapi.com/api/character')
+    
+    
+    fetchData({ commit }, city) {
+      const apiUrl = `https://goweather.herokuapp.com/weather/${city}`;
+      return axios.get(apiUrl)
         .then((response) => {
           commit('setData', response.data);
           console.log('API Response',response.data)
