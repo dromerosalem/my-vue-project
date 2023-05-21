@@ -2,6 +2,8 @@
 
 This is a simple weather application built with Vue.js and Vuetify. It allows users to enter a city name and retrieve the current weather information for that city using an external API.
 
+You can access the deployed version here -> https://dromerosalem.github.io/my-vue-project/
+
 ![Weather Vue App](https://i.ibb.co/bFc7WHc/weather-vue-app.png)
 
 ## Technologies Used
